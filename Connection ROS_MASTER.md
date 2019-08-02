@@ -1,9 +1,9 @@
-# ROS_MASTER in a 
+# ROS_MASTER and ROS_SLAVE
 
 Where you see "<<        >>" just replace without the signs.
 
 Step 1: Setup sever newtwork 
-PC1 = #server
+PC1 = # server
   ```
   $ ifconfig -----------------------------------> To get the "PC1"
   $ sudo atom etc/hosts -----------------------------------> Add in the end  "PC2_IP"
@@ -13,7 +13,7 @@ PC1 = #server
 
   ```
   Step 2: Setup slave newtwork
-  PC2 = #Slave
+  PC2 = # Slave
   ```
   $ ifconfig -----------------------------------> To get the "PC2"
   $ sudo atom etc/hosts -----------------------------------> Add in the end  "PC1_IP"
