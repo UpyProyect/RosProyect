@@ -1,6 +1,6 @@
 # ROS_MASTER in a 
 
-Where you see "<< >>" just replace without the signs.
+Where you see "<<        >>" just replace without the signs.
 
 Step 1: Setup sever newtwork 
 PC1 = #server
