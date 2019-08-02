@@ -6,7 +6,7 @@ Step 1: Setup sever newtwork
 PC1 = #server
   ```
   $ ifconfig -----------------------------------> To get the "PC1"
-  $ sudo subl/atom etc/hosts -----------------------------------> Add in the end  "PC2_IP"
+  $ sudo atom etc/hosts -----------------------------------> Add in the end  "PC2_IP"
   $ roscore -----------------------------------> Run it
   $ echo %ROS_MASTER_URI -----------------------------------> To get the "PORT"
   $ export ROS_IP=<PC1_IP> -----------------------------------> Run it
@@ -16,7 +16,7 @@ PC1 = #server
   PC2 = #Slave
   ```
   $ ifconfig -----------------------------------> To get the "PC2"
-  $ sudo subl/atom etc/hosts -----------------------------------> Add in the end  "PC1_IP"
+  $ sudo atom etc/hosts -----------------------------------> Add in the end  "PC1_IP"
   $ export ROS_MASTER_URI=http://<<PC1_IP>>:<<port>> -----------------------------------> Run it
   $ export ROS_IP=<<PC2_IP>> -----------------------------------> Run it
   
