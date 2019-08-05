@@ -3,9 +3,11 @@
 import Tkinter as tk
 from Tkinter import *
 import rospy
-from interface.msg import gps_data
+from mobile_robot.msg import gps_data
+from mobile_robot.msg import Ip
+from mobile_robot.msg import ahrs_data
+from mobile_robot.msg import ultrasonic_data
 from std_msgs.msg import String
-from Interface.msg import Ip
 from PIL import Image, ImageTk
 
 class App():
@@ -15,13 +17,15 @@ class App():
         self.root.geometry("720x480")
         self.root.wm_title("Serial Communication") #Makes the title that will appear in the top left
         self.root.config(background = "#FFFFFF")
-        self.background = tk.PhotoImage(file="/home/rodrigo/catkin_ws/src/Interface/images/background.png") #Cambiar por la ruta donde se encuentre la imagen
+        self.background = tk.PhotoImage(file="/home/lazaropa/catkin_ws/src/interface/images/background.png") #Cambiar por la ruta donde se encuentre la imagen
         self.back = tk.Label(image=self.background)
         self.back.place(x=0,y=0,relwidth=1,relheight=1)
         rospy.init_node('listener')
         self.subGPS = rospy.Subscriber("gps_data", gps_data, self.GPS_Downloading)
         self.subXbox = rospy.Subscriber("Xbox", String, self.Xbox_control)
         self.subUser = rospy.Subscriber("Ip", Ip, self.Ip_User_Slave)
+        self.subhrs = rospy.Subscriber("AHRS", ahrs_data, self.rs)
+        self.subultra = rospy.Subscriber("ultrasonic", ultrasonic_data, self.Ultrasonic)
 
         #UPLEFT rame and its contents
         self.upLeftFrame = Frame(self.root, width=300, height = 600, bg="#045D69")
@@ -40,7 +44,7 @@ class App():
 
         #MIDDLE Frame and its contents
         self.middleFrame = Frame(self.root, width=180, height = 40, bg="#045D69")
-        self.middleFrame.grid(row=0, column=1, padx=60, pady=0)
+        self.middleFrame.grid(row=0, column=1, padx=20, pady=0)
 
         #UPRIGHT Frame and its contents
         self.upRightFrame = Frame(self.root, width=300, height = 600, bg="#045D69")
@@ -79,9 +83,24 @@ class App():
     def Ip_User_Slave(self, data):
         Label(text=data.Ip,fg="black",bg="#68A6DB",font=("Arial",11)).place(x=280, y=4)
 
+    def Ultrasonic(self, data):
+        distance = Label(self.leftFrame, text=data.distance, bg="#045D69", fg="black")
+        distance.grid(row=1, column=0,padx=0,pady=0)
+
+    def rs(self, data):
+        x=data.ahrs.split("|")
+        roll = Label(self.upRightFrame, text=x[0], bg="#045D69", fg="black")
+        roll.grid(row=1, column=0,padx=0,pady=0)
+
+        pitch = Label(self.upRightFrame, text=x[1], bg="#045D69", fg="black")
+        pitch.grid(row=2, column=0,padx=0,pady=0)
+
+        yaw = Label(self.upRightFrame, text=x[2], bg="#045D69", fg="black")
+        yaw.grid(row=3, column=0,padx=0,pady=0)
+
     def Xbox_control(self,data):
        if data.data=="aa":
-            load = Image.open("/home/rodrigo/catkin_ws/src/Interface/images/up.png")
+            load = Image.open("/home/lazaropa/catkin_ws/src/interface/images/up.png")
             load = load.resize((100,100),Image.ANTIALIAS)
             render = ImageTk.PhotoImage(load)
             img = Label( image=render)
@@ -89,7 +108,7 @@ class App():
             img.place(x=310, y=190)
 
        elif data.data=="bb":
-            load=Image.open("/home/rodrigo/catkin_ws/src/Interface/images/down.png")
+            load=Image.open("//home/lazaropa/catkin_ws/src/interface/images/down.png")
             load = load.resize((100,100),Image.ANTIALIAS)
             render = ImageTk.PhotoImage(load)
             img = Label( image=render)
@@ -97,7 +116,7 @@ class App():
             img.place(x=310, y=190)
 
        elif data.data=="cc":
-            load=Image.open("/home/rodrigo/catkin_ws/src/Interface/images/left.png")
+            load=Image.open("/home/lazaropa/catkin_ws/src/interface/images/left.png")
             load = load.resize((100,100),Image.ANTIALIAS)
             render = ImageTk.PhotoImage(load)
             img = Label( image=render)
@@ -105,7 +124,7 @@ class App():
             img.place(x=310, y=190)
 
        elif data.data=="dd":
-            load=Image.open("/home/rodrigo/catkin_ws/src/Interface/images/right.png")
+            load=Image.open("/home/lazaropa/catkin_ws/src/interface/images/right.png")
             load = load.resize((100,100),Image.ANTIALIAS)
             render = ImageTk.PhotoImage(load)
             img = Label( image=render)
@@ -113,7 +132,7 @@ class App():
             img.place(x=310, y=190)
 
        else:
-            load=Image.open("/home/rodrigo/catkin_ws/src/Interface/images/stop.jpg")
+            load=Image.open("/home/lazaropa/catkin_ws/src/interface/images/stop.jpg")
             load = load.resize((100,100),Image.ANTIALIAS)
             render = ImageTk.PhotoImage(load)
             img = Label( image=render)
