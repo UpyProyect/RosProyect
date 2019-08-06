@@ -17,7 +17,7 @@ class App():
         self.root.geometry("720x480")
         self.root.wm_title("Serial Communication") #Makes the title that will appear in the top left
         self.root.config(background = "#FFFFFF")
-        self.background = tk.PhotoImage(file="/home/lazaropa/catkin_ws/src/interface/images/background.png") #Cambiar por la ruta donde se encuentre la imagen
+        self.background = tk.PhotoImage(file="/home/edwinbbit/catkin_ws/src/interface/images/background.png") #Cambiar por la ruta donde se encuentre la imagen
         self.back = tk.Label(image=self.background)
         self.back.place(x=0,y=0,relwidth=1,relheight=1)
         rospy.init_node('listener')
@@ -64,13 +64,6 @@ class App():
 
         Label(self.rightFrame, text="Distance:",fg="black",bg="#045D69",font=("Arial")).grid(row=0, column=0, padx=10, pady=2)
 
-        load=Image.open("/home/daltair/catkin_ws/src/interface/images/control.png")
-        load = load.resize((240,120),Image.ANTIALIAS)
-        render = ImageTk.PhotoImage(load)
-        img = Label( image=render)
-        img.image = render
-        img.place(x=235, y=350)
-
 
         self.root.mainloop()
 
@@ -106,16 +99,17 @@ class App():
         yaw.grid(row=3, column=0,padx=0,pady=0)
 
     def Xbox_control(self,data):
+
        if data.data=="aa":
-            load = Image.open("/home/lazaropa/catkin_ws/src/interface/images/up.png")
+            load = Image.open("/home/edwinbbit/catkin_ws/src/interface/images/up.png")
             load = load.resize((100,100),Image.ANTIALIAS)
-            render = ImageTk.PhotoImage(load)
-            img = Label( image=render)
-            img.image = render
+            render2 = ImageTk.PhotoImage(load)
+            img.configure(image=render2)
+            img.image = render2
             img.place(x=310, y=190)
 
        elif data.data=="bb":
-            load=Image.open("//home/lazaropa/catkin_ws/src/interface/images/down.png")
+            load=Image.open("//home/edwinbbit/catkin_ws/src/interface/images/down.png")
             load = load.resize((100,100),Image.ANTIALIAS)
             render = ImageTk.PhotoImage(load)
             img = Label( image=render)
@@ -123,7 +117,7 @@ class App():
             img.place(x=310, y=190)
 
        elif data.data=="cc":
-            load=Image.open("/home/lazaropa/catkin_ws/src/interface/images/left.png")
+            load=Image.open("/home/edwinbbit/catkin_ws/src/interface/images/left.png")
             load = load.resize((100,100),Image.ANTIALIAS)
             render = ImageTk.PhotoImage(load)
             img = Label( image=render)
@@ -131,7 +125,7 @@ class App():
             img.place(x=310, y=190)
 
        elif data.data=="dd":
-            load=Image.open("/home/lazaropa/catkin_ws/src/interface/images/right.png")
+            load=Image.open("/home/edwinbbit/catkin_ws/src/interface/images/right.png")
             load = load.resize((100,100),Image.ANTIALIAS)
             render = ImageTk.PhotoImage(load)
             img = Label( image=render)
@@ -139,11 +133,11 @@ class App():
             img.place(x=310, y=190)
 
        else:
-            load=Image.open("/home/lazaropa/catkin_ws/src/interface/images/stop.jpg")
+            global img
+            load=Image.open("/home/edwinbbit/catkin_ws/src/interface/images/stop.jpg")
             load = load.resize((100,100),Image.ANTIALIAS)
             render = ImageTk.PhotoImage(load)
-            img = Label( image=render)
-            img.image = render
+            img = Label(self.root, image=render)
             img.place(x=310, y=190)
 
 
