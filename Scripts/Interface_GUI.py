@@ -64,6 +64,13 @@ class App():
 
         Label(self.rightFrame, text="Distance:",fg="black",bg="#045D69",font=("Arial")).grid(row=0, column=0, padx=10, pady=2)
 
+        load=Image.open("/home/daltair/catkin_ws/src/interface/images/control.png")
+        load = load.resize((240,120),Image.ANTIALIAS)
+        render = ImageTk.PhotoImage(load)
+        img = Label( image=render)
+        img.image = render
+        img.place(x=235, y=350)
+
 
         self.root.mainloop()
 
